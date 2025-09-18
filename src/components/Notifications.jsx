@@ -29,18 +29,34 @@ function Notifications() {
   }
 
   useEffect(() => {
-    axios.get(`https://mail.google.com/mail/u/1/feed/atom`).then((res) => {
-      const xml = res.data
-      xml2js.parseString(xml, (err, result) => {
-        if (err) {
-          throw err
-        }
-        setGmailData(result)
+    // Check if Gmail is enabled first
+    chrome.storage.local.get(['storage'], (storageResult) => {
+      if (!storageResult.storage || !storageResult.storage.gmail) {
+        return
+      }
 
-        setLastReadtime();
-        chrome.action.setBadgeText({
-          text:''
+      axios.get(`https://mail.google.com/mail/u/1/feed/atom`, {
+        timeout: 10000,
+        headers: {
+          'Accept': 'application/atom+xml, application/xml, text/xml'
+        }
+      }).then((res) => {
+        const xml = res.data
+        xml2js.parseString(xml, (err, result) => {
+          if (err) {
+            console.log('XML parsing error:', err)
+            return
+          }
+          setGmailData(result)
+
+          setLastReadtime();
+          chrome.action.setBadgeText({
+            text:''
+          })
         })
+      }).catch((error) => {
+        console.log('Gmail feed error:', error.message)
+        // Don't set any data if there's an error
       })
     })
   }, [])
