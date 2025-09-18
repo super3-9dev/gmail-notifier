@@ -1,0 +1,34 @@
+{
+  "manifest_version": 3,
+  "version": "0.1.3",
+  "short_name": "Blue Bell: Gmail™ notification tool",
+  "name": "Blue Bell Gmail™ notification tool",
+  "description": "Blue Bell Gmail™ notification tool allows users to view new emails easily.",
+  "action": {
+    "default_title": "Blue Bell",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.bundle.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://mail.google.com/*"],
+      "js": ["contentScript.bundle.js"]
+    }
+  ],
+  "icons": {
+    "16": "img/notification-bell-16.png",
+    "48": "img/notification-bell-64.png",
+    "128": "img/notification-bell-128.png"
+  },
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://mail.google.com/*"
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
+}
