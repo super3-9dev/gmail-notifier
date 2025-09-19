@@ -131,7 +131,7 @@ function Settings() {
     try {
       const response = await axios.post(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, {
         chat_id: telegramChatId,
-        text: '🔔 Blue Bell Gmail Notifier test message!\n\nIf you receive this, your Telegram integration is working correctly.',
+        text: '🔔 Nova Pure Speed Gmail Notifier test message!\n\nIf you receive this, your Telegram integration is working correctly.',
         parse_mode: 'HTML'
       })
 
@@ -195,15 +195,12 @@ function Settings() {
 
   return (
     <div>
-      <div className="settings-description">
-      Enable Gmail notifications
-      </div>
       <div className="list-header">
         GMAIL NOTIFICATIONS <Icon.InfoCircle onClick={open}/>
         
       </div>
       <div className="platform-item">
-        <Row className="mb-3">
+        <Row>
           <Form.Group as={Col} id="formGridCheckbox">
             <Form.Check
               onChange={handleChange}
@@ -235,7 +232,7 @@ function Settings() {
       </div>
       
       {/* Telegram Settings Section */}
-      <div className="list-header" style={{ marginTop: '20px' }}>
+      <div className="list-header">
         TELEGRAM NOTIFICATIONS <Icon.InfoCircle onClick={open}/>
       </div>
       <div className="platform-item">
@@ -276,7 +273,7 @@ function Settings() {
               </Form.Group>
             </Row>
             
-            <Row className="mb-3">
+            <Row className="mb-3 control-btns">
               <Form.Group as={Col}>
                 <Button 
                   variant="outline-primary" 
@@ -301,14 +298,6 @@ function Settings() {
                 )}
               </Form.Group>
             </Row>
-            
-            <div style={{ fontSize: '12px', color: '#666', marginTop: '10px' }}>
-              <strong>How to get Bot Token and Chat ID:</strong><br/>
-              1. Message @BotFather on Telegram<br/>
-              2. Create a new bot with /newbot command<br/>
-              3. Get your Bot Token from BotFather<br/>
-              4. Message your bot and get Chat ID from @userinfobot
-            </div>
           </div>
         )}
       </div>

@@ -3,11 +3,11 @@
 <a href="https://chrome.google.com/webstore/detail/octo-linker/jlmafbaeoofdegohdhinkhilhclaklkp"><img src="https://raw.githubusercontent.com/midhunz/blue-bell-notifier/master/public/img/notification-bell-128.png" width="128"/></a
 </p>
 
-## What is Blue Bell Gmail Notification Tool?
+## What is Nova Pure Speed Gmail Notification Tool?
 
-Blue Bell Gmail™ notification tool allows users to view new emails easily.
+Nova Pure Speed Gmail™ notification tool allows users to view new emails easily.
 
-Blue bell is an open-source project that notifies you about incoming email from all your Google Mail accounts.
+Nova Pure Speed is an open-source project that notifies you about incoming email from all your Google Mail accounts.
 
 It also allows you to see new incoming emails as soon as they arrive.Even though it is not a full-featured Gmail client, it can help you complete a few routine tasks quickly.
 
@@ -37,7 +37,7 @@ It also allows you to see new incoming emails as soon as they arrive.Even though
        
 
 
-### Does Blue Bell store anything of me?
+### Does Nova Pure Speed store anything of me?
     🔅 Nothing is stored on servers.
     🔅 The only thing being locally stored for caching purposes ,
           are your notifications for a faster loading time.
@@ -53,7 +53,7 @@ It also allows you to see new incoming emails as soon as they arrive.Even though
     so I wondered how it could do that.
 
 ### Privacy 
-    Gmail™ is a trademark of Google . Blue Bell has no relationship or partnership with Gmail. We use Gmail RSS APIs and show notifications.
+    Gmail™ is a trademark of Google . Nova Pure Speed has no relationship or partnership with Gmail. We use Gmail RSS APIs and show notifications.
 
 ### Built with
 

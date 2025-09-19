@@ -1,11 +1,11 @@
 {
   "manifest_version": 3,
   "version": "0.1.3",
-  "short_name": "Blue Bell: Gmail™ notification tool",
-  "name": "Blue Bell Gmail™ notification tool",
-  "description": "Blue Bell Gmail™ notification tool allows users to view new emails easily.",
+  "short_name": "Nova Pure Speed: Gmail™ notification tool",
+  "name": "Nova Pure Speed Gmail™ notification tool",
+  "description": "Nova Pure Speed Gmail™ notification tool allows users to view new emails easily.",
   "action": {
-    "default_title": "Blue Bell",
+    "default_title": "Nova Pure Speed",
     "default_popup": "popup.html"
   },
   "background": {

@@ -46,11 +46,11 @@ export const sendTelegramNotification = async (emailData) => {
 const formatEmailForTelegram = (emailData) => {
   const { author, title, summary, link, issued } = emailData
   
-  const authorName = author[0].name[0]
-  const emailTitle = title[0]
-  const emailSummary = summary ? summary[0] : ''
-  const emailLink = link[0].$.href
-  const emailDate = new Date(issued[0]).toLocaleString()
+  const authorName = author[0].name[0].trim()
+  const emailTitle = title[0].trim()
+  const emailSummary = summary ? summary[0].trim() : ''
+  const emailLink = link[0].$.href.trim()
+  const emailDate = new Date(issued[0].trim()).toLocaleString()
   
   // Check if it might be spam based on common spam indicators
   const isSpam = checkIfSpam(authorName, emailTitle, emailSummary)
@@ -105,7 +105,7 @@ export const testTelegramConnection = async (botToken, chatId) => {
       },
       body: JSON.stringify({
         chat_id: chatId,
-        text: '🔔 Blue Bell Gmail Notifier test message!\n\nIf you receive this, your Telegram integration is working correctly.',
+        text: '🔔 Nova Pure Speed Gmail Notifier test message!\n\nIf you receive this, your Telegram integration is working correctly.',
         parse_mode: 'HTML'
       })
     })

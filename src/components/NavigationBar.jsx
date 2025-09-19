@@ -39,7 +39,7 @@ function NavigationBar() {
   return (
     <Styles>
       <Navbar expand="rg" >
-        <Navbar.Brand >Blue Bell</Navbar.Brand>
+        <Navbar.Brand >Nova Pure Speed</Navbar.Brand>
         <Nav.Link onClick={menu}><Icon.Gear/></Nav.Link>
       </Navbar>
     </Styles>

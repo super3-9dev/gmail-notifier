@@ -16,7 +16,6 @@ function SettinngsInfo(props) {
         </Modal.Header>
 
         <Modal.Body>
-              <strong>How to enable Gmail notifications:</strong><br/><br/>
               1. <strong>First:</strong> Open Gmail in a new tab at <a href="https://mail.google.com" target="_blank" rel="noopener noreferrer">mail.google.com</a> and make sure you're logged in<br/>
               2. <strong>Then:</strong> Come back to this extension and check the "Gmail" checkbox above<br/>
               3. Click "Save"<br/><br/>

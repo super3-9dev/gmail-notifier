@@ -189,18 +189,18 @@ function parseEntry(entryXml) {
       return match ? match[1] : ''
     }
 
-    const id = getTextContent('id')
-    const title = getTextContent('title')
-    const summary = getTextContent('summary')
-    const issued = getTextContent('issued')
-    const modified = getTextContent('modified')
+    const id = getTextContent('id').trim()
+    const title = getTextContent('title').trim()  
+    const summary = getTextContent('summary').trim()
+    const issued = getTextContent('issued').trim()
+    const modified = getTextContent('modified').trim()
     
     // Parse author
-    const authorName = getTextContent('name')
-    const authorEmail = getTextContent('email')
+    const authorName = getTextContent('name').trim()
+    const authorEmail = getTextContent('email').trim()
     
     // Parse link
-    const linkHref = getAttribute('link', 'href')
+    const linkHref = getAttribute('link', 'href').trim()
 
     if (!id || !title) {
       return null

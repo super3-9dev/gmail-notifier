@@ -19,11 +19,6 @@
   border-bottom: 1px solid rgb(222, 222, 222);
 }
 
-.row:hover {
-  background-color: #dfe2ff;
-  cursor: pointer;
-}
-
 .mager-content {
   margin-left: 0;
   margin-right: 0;
@@ -68,8 +63,7 @@ p {
 }
 
 .platform-item {
-  padding-left: 15px;
-  padding-top: 10px;
+  padding: 15px;
 }
 
 .settings-save {
@@ -124,7 +118,7 @@ p {
 
 .version {
   text-align: center;
-  padding-top: 190px;
+  padding-top: 30px;
   font-size: small;
   opacity: 0.3;
 }
@@ -132,4 +126,14 @@ p {
 .text-v-middle {
   padding-top: 150px;
   opacity: .4;
+}
+
+.control-btns {
+  margin: auto;
+}
+
+.control-btns>div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
