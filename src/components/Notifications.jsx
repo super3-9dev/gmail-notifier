@@ -1,8 +1,7 @@
 /*global chrome*/
 import React, { useState, useEffect, useRef } from 'react'
 import { Container, Row } from 'react-bootstrap'
-import axios from 'axios'
-import xml2js from 'xml2js'
+// import axios from 'axios'
 import '../App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Moment from 'react-moment'
@@ -35,17 +34,26 @@ function Notifications() {
         return
       }
 
-      axios.get(`https://mail.google.com/mail/u/1/feed/atom`, {
-        timeout: 10000,
+      fetch(`https://mail.google.com/mail/u/1/feed/atom`, {
+        method: 'GET',
         headers: {
-          'Accept': 'application/atom+xml, application/xml, text/xml'
+          'Accept': 'application/atom/xml, application/xml, text/xml'
         }
-      }).then((res) => {
-        const xml = res.data
-        xml2js.parseString(xml, (err, result) => {
-          if (err) {
-            console.log('XML parsing error:', err)
-            return
+      }).then(async (res) => {
+        if (!res.ok) {
+          throw new Error('Network response was not ok')
+        }
+        const xml = await res.text()
+        
+        // Parse the XML response manually without xml2js
+        const parsedData = parseGmailFeed(xml)
+        
+        if (parsedData && parsedData.entries) {
+          // Convert to the expected format
+          const result = {
+            feed: {
+              entry: parsedData.entries
+            }
           }
           setGmailData(result)
 
@@ -53,7 +61,9 @@ function Notifications() {
           chrome.action.setBadgeText({
             text:''
           })
-        })
+        } else {
+          console.log('No valid email data found in response')
+        }
       }).catch((error) => {
         console.log('Gmail feed error:', error.message)
         // Don't set any data if there's an error
@@ -164,6 +174,87 @@ function Notifications() {
       })}
     </Container>
   )
+}
+
+// Custom XML parser for Gmail Atom feed
+function parseGmailFeed(xmlString) {
+  try {
+    // Check if the response contains valid XML
+    if (!xmlString || !xmlString.includes('<?xml') || !xmlString.includes('<feed')) {
+      console.log('Invalid XML response:', xmlString.substring(0, 200))
+      return null
+    }
+
+    // Simple regex-based parsing for Gmail Atom feed
+    const entryRegex = /<entry[^>]*>(.*?)<\/entry>/gs
+    const entries = []
+    let match
+
+    while ((match = entryRegex.exec(xmlString)) !== null) {
+      const entryXml = match[1]
+      const entry = parseEntry(entryXml)
+      if (entry) {
+        entries.push(entry)
+      }
+    }
+
+    return { entries }
+  } catch (error) {
+    console.log('Error parsing Gmail feed:', error)
+    return null
+  }
+}
+
+// Parse individual email entry
+function parseEntry(entryXml) {
+  try {
+    const getTextContent = (tagName) => {
+      const regex = new RegExp(`<${tagName}[^>]*>(.*?)</${tagName}>`, 's')
+      const match = entryXml.match(regex)
+      return match ? match[1].trim() : ''
+    }
+
+    const getAttribute = (tagName, attrName) => {
+      const regex = new RegExp(`<${tagName}[^>]*${attrName}="([^"]*)"`, 's')
+      const match = entryXml.match(regex)
+      return match ? match[1] : ''
+    }
+
+    const id = getTextContent('id')
+    const title = getTextContent('title')
+    const summary = getTextContent('summary')
+    const issued = getTextContent('issued')
+    const modified = getTextContent('modified')
+    
+    // Parse author
+    const authorName = getTextContent('name')
+    const authorEmail = getTextContent('email')
+    
+    // Parse link
+    const linkHref = getAttribute('link', 'href')
+
+    if (!id || !title) {
+      return null
+    }
+
+    return {
+      id,
+      title: [title],
+      summary: summary ? [summary] : [''],
+      issued: [issued],
+      modified: [modified],
+      author: [{
+        name: [authorName],
+        email: [authorEmail]
+      }],
+      link: [{
+        $: { href: linkHref }
+      }]
+    }
+  } catch (error) {
+    console.log('Error parsing entry:', error)
+    return null
+  }
 }
 
 export default Notifications

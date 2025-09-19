@@ -74,7 +74,7 @@ function Settings() {
           // Try to check login status via the Atom feed with better error handling
           axios
             .get('https://mail.google.com/mail/u/1/feed/atom', {
-              timeout: 5000,
+              timeout: 10000,
               headers: {
                 'Accept': 'application/atom+xml, application/xml, text/xml'
               }
@@ -110,6 +110,13 @@ function Settings() {
     // Force refresh login status
     chrome.storage.local.remove(['isGmailLogedIn'], () => {
       updateLoginStatus()
+    })
+  }
+
+  const resetEmailProcessing = () => {
+    // Clear the processed emails list to receive all emails again
+    chrome.storage.local.remove(['lastProcessedEmails'], () => {
+      alert('Email processing reset! You will now receive notifications for all unread emails.')
     })
   }
 
@@ -276,8 +283,16 @@ function Settings() {
                   size="sm" 
                   onClick={testTelegramConnection}
                   disabled={!telegramBotToken || !telegramChatId}
+                  className="me-2"
                 >
                   Test Connection
+                </Button>
+                <Button 
+                  variant="outline-warning" 
+                  size="sm" 
+                  onClick={resetEmailProcessing}
+                >
+                  Reset Email Processing
                 </Button>
                 {telegramTestStatus && (
                   <span className="ms-2" style={{ fontSize: '12px' }}>
